@@ -4,13 +4,14 @@ import sys
 from PyQt5 import uic
 from PyQt5.QtWidgets import QMainWindow, QApplication, QComboBox, QTableWidget, QTableWidgetItem, QAbstractItemView, \
     QWidget
+from main_design import Ui_MainWindow
+from addEditCoffeeForm_design import Ui_Form
 
-
-class ViewDB(QMainWindow):
+class ViewDB(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(ViewDB, self).__init__()
-        uic.loadUi('main.ui', self)
-        self.con = sqlite3.connect('coffee.sqlite')
+        self.setupUi(self)
+        self.con = sqlite3.connect('data/coffee.sqlite')
         self.varieties_set = set()
         self.degrees_set = set()
         self.type_set = set()
@@ -120,10 +121,10 @@ class ViewDB(QMainWindow):
         self.comboBox_size.addItems(map(str, ['-'] + (sorted(self.size_set))))
 
 
-class AddEditCoffeeForm(QWidget):
+class AddEditCoffeeForm(QWidget, Ui_Form):
     def __init__(self):
         super(AddEditCoffeeForm, self).__init__()
-        uic.loadUi('addEditCoffeeForm.ui', self)
+        self.setupUi(self)
 
 
 if __name__ == '__main__':
